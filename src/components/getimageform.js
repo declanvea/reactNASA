@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../logo.svg';
 import '../styles/App.css';
+// import GetImageButton from './getimageform';
 
 const API_KEY = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=fhaz&api_key=JPlhYI0oljktyHqtHCGmhfEZNY0XQk9iYkTyTOLI';
 
@@ -44,6 +45,7 @@ return(
           </select>
         <label htmlFor="sol">Martian Sol: 1000-2000</label>
         <input type="number" onChange={this.handleSol} max="2000" min="1000" value={this.state.value}/>
+
       </div>
       );
     }
