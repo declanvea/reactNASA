@@ -1,34 +1,46 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../styles/App.css';
-// import GetImageButton from './getimageform';
+import GetImageButton from './getimagebutton';
+import ImageDisplay from './imagedisplay';
 
-const API_KEY = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=fhaz&api_key=JPlhYI0oljktyHqtHCGmhfEZNY0XQk9iYkTyTOLI';
+const api_key = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=X3aNQZj7BdSiNk8EUjNBImIKplVeWrVEfeVislMQ';
 
 export default class GetImageForm extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
-      rover: "Curiosity",
-      camera: "FHAZ",
+      rover: [],
+      camera: "",
       images: [],
       sol: "",
     }
   }
 
-  handleRover(){
-
+  handleRover = (e) => {
+    this.setState({rover: e.target.value});
   }
-  handleCamera(){
-
+  handleCamera = (e) => {
+    this.setState({camera: e.target.value});
   }
-  handleSol(e){
+  handleSol = (e) => {
     e.preventDefault();
     this.setState({sol: e.target.value});
   }
 
+  fetchRoverImage = () => {
+    console.log('clicked');
+    fetch(api_key)
+    .then(r => r.json())
+    .then(results => {
+    })
+  }
+  componentDidMount(){
+    this.fetchRoverImage();
+  }
+
 render(){
+  console.log(this.state.rover);
 return(
       <div>
         <label htmlFor="rover">Rover</label>
@@ -46,6 +58,8 @@ return(
         <label htmlFor="sol">Martian Sol: 1000-2000</label>
         <input type="number" onChange={this.handleSol} max="2000" min="1000" value={this.state.value}/>
 
+        <GetImageButton {...this.state} onClick={this.fetchRoverImage}/>
+        <ImageDisplay camera={this.state.camera} rover={this.state.rover} sol={this.state.sol}/>
       </div>
       );
     }
